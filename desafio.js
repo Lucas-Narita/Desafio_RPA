@@ -54,6 +54,12 @@ async function scrapeData() {
     }
 }
 
+async function fillFormWithText(driver, rowData) {
+    let formattedText = rowData.join(' ') + ';\n'; // Formatar os dados conforme solicitado
+    let contentEditableDiv = await driver.findElement(By.css('div.note-editable.card-block[contenteditable="true"]'));
+    await driver.executeScript("arguments[0].innerHTML += arguments[1];", contentEditableDiv, formattedText);
+}
+
 async function readExcelAndFillForm() {
     const data = xlsx.parse(fs.readFileSync('scraped_data.xlsx'));
     const sheetData = data[0].data; // Assuming there's only one sheet and it's the first one
@@ -64,18 +70,10 @@ async function readExcelAndFillForm() {
         // Navegue até a página do formulário
         await driver.get('http://webapplayers.com/inspinia_admin-v2.9.4/form_editors.html');
 
-        // Função para preencher o formulário
-        async function fillFormWithText(text) {
-            let contentEditableDiv = await driver.findElement(By.css('div.note-editable.card-block[contenteditable="true"]'));
-            await driver.executeScript("arguments[0].innerHTML = '';", contentEditableDiv); // Limpar o conteúdo existente
-            await contentEditableDiv.sendKeys(text);
-        }
-
         // Ignorar a primeira linha que é o cabeçalho
         for (let i = 1; i < sheetData.length; i++) {
             let row = sheetData[i];
-            let formattedText = row.join(' - ') + '; \n';
-            await fillFormWithText(formattedText);
+            await fillFormWithText(driver, row);
 
             // Aqui você pode adicionar uma espera se necessário para observar o preenchimento do formulário
             await driver.sleep(1000);
