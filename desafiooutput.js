@@ -4,7 +4,9 @@ const fs = require('fs');
 
 async function scrapeData() {
     let driver = await new Builder().forBrowser('chrome').build();
-    let allData = [];
+    let allData = [
+        ['Rendering engine', 'Browser', 'Platform(s)', 'Engine version', 'CSS grade']
+    ];
 
     try {
         // Navegue até a página especificada
