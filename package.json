@@ -11,6 +11,7 @@
   "description": "",
   "dependencies": {
     "chromedriver": "^125.0.1",
+    "node-xlsx": "^0.24.0",
     "selenium-webdriver": "^4.21.0"
   }
 }
