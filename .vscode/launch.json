@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "type": "chrome",
+            "name": "http://\"C:\\Users\\lucas\\OneDrive\\Área de Trabalho\\node-v20.13.1\"",
+            "request": "launch",
+            "url": "http://\"C:\\Users\\lucas\\OneDrive\\Área de Trabalho\\node-v20.13.1\""
+        }
+    ]
+}
