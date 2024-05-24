@@ -54,12 +54,6 @@ async function scrapeData() {
     }
 }
 
-async function fillFormWithText(driver, rowData) {
-    let formattedText = rowData.join(' ') + ';\n'; // Formatar os dados conforme solicitado
-    let contentEditableDiv = await driver.findElement(By.css('div.note-editable.card-block[contenteditable="true"]'));
-    await driver.executeScript("arguments[0].innerHTML += arguments[1];", contentEditableDiv, formattedText);
-}
-
 async function readExcelAndFillForm() {
     const data = xlsx.parse(fs.readFileSync('scraped_data.xlsx'));
     const sheetData = data[0].data; // Assuming there's only one sheet and it's the first one
@@ -70,16 +64,32 @@ async function readExcelAndFillForm() {
         // Navegue até a página do formulário
         await driver.get('http://webapplayers.com/inspinia_admin-v2.9.4/form_editors.html');
 
-        // Ignorar a primeira linha que é o cabeçalho
+        async function fillFormWithText(text) {
+            let contentEditableDiv = await driver.findElement(By.css('div.note-editable.card-block[contenteditable="true"]'));
+        
+            // Limpar o conteúdo existente
+            await driver.executeScript("arguments[0].innerHTML = '';", contentEditableDiv);
+        
+            // Adicionar o novo texto acumulado
+            let formattedText = text.split(';').map(line => '-- ' + line.trim() + ';').join('<br>');
+            await driver.executeScript("arguments[0].innerHTML = arguments[1];", contentEditableDiv, formattedText);
+        }
+        
+        // Acumular todo o texto das linhas
+        let accumulatedText = '';
         for (let i = 1; i < sheetData.length; i++) {
             let row = sheetData[i];
-            await fillFormWithText(driver, row);
-
-            // Aqui você pode adicionar uma espera se necessário para observar o preenchimento do formulário
-            await driver.sleep(1000);
+            let formattedText = row.join(' ') + ';';
+            accumulatedText += formattedText;
         }
 
+        // Preencher o formulário com o texto acumulado
+        await fillFormWithText(accumulatedText);
+
         console.log('Form has been filled with data from Excel.');
+
+        // Adicionar um sleep para visualizar o preenchimento do formulário
+        await driver.sleep(30000);
     } finally {
         await driver.quit();
     }
