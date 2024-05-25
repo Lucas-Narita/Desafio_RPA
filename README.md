@@ -21,7 +21,9 @@ Este projeto consiste em automatiza o processo de raspagem de dados de uma pági
 ```bash
  npm install selenium-webdriver node-xlsx fs
 ```
-
+```bash
+git clone
+```
 
 ## Executar o script
 ```bash
