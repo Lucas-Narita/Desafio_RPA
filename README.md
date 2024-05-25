@@ -19,7 +19,7 @@ Este projeto consiste em automatiza o processo de raspagem de dados de uma pági
 
 - Execute o seguinte comando para instalar as dependências necessárias:
 ```bash
- npm install selenium-webdriver node-xlsx fs
+npm install selenium-webdriver node-xlsx fs
 ```
 ```bash
 git clone https://github.com/Lucas-Narita/Desafio_RPA
