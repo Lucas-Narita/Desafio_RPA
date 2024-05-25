@@ -22,7 +22,7 @@ Este projeto consiste em automatiza o processo de raspagem de dados de uma pági
  npm install selenium-webdriver node-xlsx fs
 ```
 ```bash
-git clone
+git clone https://github.com/Lucas-Narita/Desafio_RPA
 ```
 
 ## Executar o script
