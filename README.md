@@ -12,7 +12,9 @@ Este projeto consiste em automatiza o processo de raspagem de dados de uma pági
 - ChromeDriver instalado e acessível no PATH do sistema
 
 ## Configuração
-
+```bash
+git clone https://github.com/Lucas-Narita/Desafio_RPA
+```
 - Clone este repositório ou copie o código para um diretório em sua máquina.
 
 - Navegue até o diretório no seu terminal.
@@ -20,9 +22,6 @@ Este projeto consiste em automatiza o processo de raspagem de dados de uma pági
 - Execute o seguinte comando para instalar as dependências necessárias:
 ```bash
 npm install selenium-webdriver node-xlsx fs
-```
-```bash
-git clone https://github.com/Lucas-Narita/Desafio_RPA
 ```
 
 ## Executar o script
